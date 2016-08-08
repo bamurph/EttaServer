@@ -7,11 +7,24 @@
 //
 
 import Vapor
+import HTTP
+
+let eoURL = "http://www.etymonline.com/index.php?term="
+
 
 let drop = Droplet()
 
-drop.get("/hello") { _ in
-    return "Hello Vapor"
+drop.get("search", String.self) { request, searchString in
+
+
+    let queryURL = eoURL + searchString
+
+    let etymResponse = try drop.client.get(queryURL)
+
+    return etymResponse
+
 }
 
-try drop.serve()
+
+
+drop.serve()
