@@ -13,9 +13,13 @@ let eoURL = "http://www.etymonline.com/index.php?term="
 
 
 let drop = Droplet()
+let _ = drop.config["app", "key"].string ?? ""
+
+drop.get("/") { request in
+  return "Hello"
+}
 
 drop.get("search", String.self) { request, searchString in
-
 
     let queryURL = eoURL + searchString
 
@@ -25,6 +29,6 @@ drop.get("search", String.self) { request, searchString in
 
 }
 
-
+let port = drop.config["app", "port"].int ?? 80
 
 drop.serve()
