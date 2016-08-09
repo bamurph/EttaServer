@@ -1,1 +1,1 @@
-web: EttaServer --port=$PORT
+web: App --env=production --workdir=./
